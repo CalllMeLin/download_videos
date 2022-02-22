@@ -5,12 +5,12 @@ from PIL import Image, ImageTk
 from pytube import YouTube
 
 
-def update_and_download():
+def download_mp3():
+
     for i in range(0,9):
 
         if event == 'download_button_mp3_'+str(i):
-            y=i-1
-            url = YouTube( "https://www.youtube.com/watch?v=" + video_ids[y] )
+            url = YouTube( "https://www.youtube.com/watch?v=" + video_ids[i-1] )
             video = url.streams.get_audio_only()
             video.download( filename=values["file_name"] + ".mp3" )
 
@@ -44,9 +44,10 @@ while True:
         link = urllib.request.urlopen(values['search_input'])
         video_ids = re.findall(r"watch\?v=(\S{11})", link.read().decode())
 
-        del video_ids[5:-1] #Deleting a bunch of videos from the result, I want the max number of results to be 4
+        del video_ids[5:-1] 
+        #Deleting a bunch of videos from the result, I want the max number of results to be 6
 
-        #Showing the thumbnail of each video
+        #Showing the thumbnail of each video vvvv
 
         for index in video_ids:
             urllib.request.urlretrieve(
@@ -63,4 +64,4 @@ while True:
     
     n_img = 1
 
-    update_and_download()
+    download_mp3()
